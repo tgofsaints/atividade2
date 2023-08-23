@@ -63,7 +63,6 @@ public class TaskManagerApp {
             System.out.println("2. Marcar tarefa como completa");
             System.out.println("3. Listar tarefas");
             System.out.println("0. Sair");
-
             
 
             int choice = scanner.nextInt();
