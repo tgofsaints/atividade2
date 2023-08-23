@@ -15,6 +15,14 @@ class Task {
         return name;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void complete() {
+        completed = true;
+    }
+
     @Override
     public String toString() {
         return "[" + (completed ? "X" : " ") + "] " + name;
@@ -33,6 +41,12 @@ class TaskManager {
         tasks.add(task);
     }
 
+    public void completeTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).complete();
+        }
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
@@ -46,8 +60,11 @@ public class TaskManagerApp {
         while (true) {
             System.out.println("Selecione uma opção:");
             System.out.println("1. Adicionar tarefa");
-            System.out.println("2. Listar tarefas");
+            System.out.println("2. Marcar tarefa como completa");
+            System.out.println("3. Listar tarefas");
             System.out.println("0. Sair");
+
+            
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Limpar o buffer do scanner
@@ -59,6 +76,11 @@ public class TaskManagerApp {
                     taskManager.addTask(taskName);
                     break;
                 case 2:
+                    System.out.println("Digite o índice da tarefa para marcar como completa:");
+                    int completeIndex = scanner.nextInt();
+                    taskManager.completeTask(completeIndex - 1);
+                    break;
+                case 3:
                     List<Task> allTasks = taskManager.getTasks();
                     System.out.println("Lista de tarefas:");
                     for (int i = 0; i < allTasks.size(); i++) {
