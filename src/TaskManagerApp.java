@@ -22,6 +22,10 @@ class Task {
     public void complete() {
         completed = true;
     }
+    
+    public void uncomplete() {
+        completed = false;
+    }
 
     @Override
     public String toString() {
@@ -47,6 +51,12 @@ class TaskManager {
         }
     }
 
+    public void uncompleteTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).uncomplete();
+        }
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
@@ -61,7 +71,8 @@ public class TaskManagerApp {
             System.out.println("Selecione uma opção:");
             System.out.println("1. Adicionar tarefa");
             System.out.println("2. Marcar tarefa como completa");
-            System.out.println("3. Listar tarefas");
+            System.out.println("3. Desmarcar tarefa como completa");
+            System.out.println("4. Listar tarefas");
             System.out.println("0. Sair");
 
             
@@ -80,7 +91,13 @@ public class TaskManagerApp {
                     int completeIndex = scanner.nextInt();
                     taskManager.completeTask(completeIndex - 1);
                     break;
+                
                 case 3:
+                    System.out.println("Digite o índice da tarefa para desmarcar como completa:");
+                    int uncompleteIndex = scanner.nextInt();
+                    taskManager.uncompleteTask(uncompleteIndex - 1);
+                    break;
+                case 4:
                     List<Task> allTasks = taskManager.getTasks();
                     System.out.println("Lista de tarefas:");
                     for (int i = 0; i < allTasks.size(); i++) {
@@ -88,7 +105,7 @@ public class TaskManagerApp {
                         System.out.println(i + 1 + ". " + task);
                     }
                     break;
-                case 6:
+                case 0:
                     System.out.println("Saindo do aplicativo.");
                     scanner.close();
                     System.exit(0);
